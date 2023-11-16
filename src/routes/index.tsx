@@ -1,15 +1,18 @@
 import {component$} from "@builder.io/qwik";
 import type {DocumentHead} from "@builder.io/qwik-city";
-import {useAuthSession, useAuthSignin, useAuthSignout} from "~/routes/plugin@auth";
+import {routeLoader$} from "@builder.io/qwik-city";
+import prismaClient from "~/lib/prismaClient";
+
+export const useCategories = routeLoader$(async() => {
+  return await prismaClient.category.findMany();
+})
 
 export default component$(() => {
-  const session = useAuthSession();
-  const signIn = useAuthSignin();
-  const signOut = useAuthSignout();
+  const categories = useCategories();
 
   return (
     <>
-      <div>Email: {session.value ? session.value.user?.email : 'Not signed in' }</div>
+
     </>
   );
 });
