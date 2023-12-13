@@ -6,6 +6,12 @@ import styles from "./styles.css?inline";
 import Header from "~/components/header";
 import prismaClient from "~/lib/prismaClient";
 
+export const useServerTimeLoader = routeLoader$(() => {
+  return {
+    date: new Date().toISOString(),
+  };
+});
+
 export const onGet: RequestHandler = async ({cacheControl}) => {
   // Control caching for this request for best performance and to reduce hosting costs:
   // https://qwik.builder.io/docs/caching/
